@@ -13,9 +13,9 @@
  docker volume prune -f
 
 # Eliminar las carpetas de los volumenes de Docker Compose
- rm -rf odoo-addons
- rm -rf odoo-data
- rm -rf postgres-data
+ rm -rf ~/Desktop/odoo-addons
+ rm -rf ~/Desktop/odoo-data
+ rm -rf ~/Desktop/postgres-data
 
 # Eliminar todos los contenedores huérfanos de Docker Compose
  docker compose down --remove-orphans

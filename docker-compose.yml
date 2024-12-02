@@ -7,9 +7,9 @@ services:
       - db
     ports:
       - "8069:8069"
-    # volumes:
-    #   - ./odoo-addons:/mnt/extra-addons
-    #   - ./odoo-data:/var/lib/odoo
+    volumes:
+      - ~/Desktop/odoo-addons:/mnt/extra-addons
+      - ~/Desktop/odoo-data:/var/lib/odoo
     environment:
       - HOST=db
       - USER=odoo
@@ -23,8 +23,8 @@ services:
       - POSTGRES_USER=odoo
       - POSTGRES_PASSWORD=odoo
       - POSTGRES_DB=postgres
-    # volumes:
-    #   - ./postgres-data:/var/lib/postgresql/data
+    volumes:
+      - ~/Desktop/postgres-data:/var/lib/postgresql/data
 
 # volumes:
 #   odoo-addons:
