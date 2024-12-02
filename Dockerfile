@@ -30,7 +30,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* && \
     apt-get update && apt-get install -y --fix-missing && \
     apt-get autoremove -y
 
-# # Clonar los repositorios de Adhoc
+# Clonar los repositorios de Adhoc
 # RUN git clone -b 17.0 --single-branch https://github.com/ingadhoc/odoo-argentina.git /mnt/extra-addons/ingadhoc/odoo-argentina \
 #     && git clone -b 17.0 --single-branch https://github.com/ingadhoc/account-payment.git /mnt/extra-addons/ingadhoc/account-payment \
 #     && git clone -b 17.0 --single-branch https://github.com/ingadhoc/account-invoicing.git /mnt/extra-addons/ingadhoc/account-invoicing \
@@ -63,7 +63,7 @@ RUN mkdir -p /mnt/extra-addons/source
 # Actualizar la configuración de OpenSSL para pyAfip
 RUN sed -i 's/CipherString = DEFAULT@SECLEVEL=2/CipherString = DEFAULT@SECLEVEL=1/' /etc/ssl/openssl.cnf
 
-RUN sed -i 's|addons_path = /mnt/extra-addons|addons_path = /mnt/extra-addons/source,/mnt/extra-addons/ingadhoc/odoo-argentina,/mnt/extra-addons/ingadhoc/account-payment,/mnt/extra-addons/ingadhoc/account-invoicing,/mnt/extra-addons/ingadhoc/argentina-sale,/mnt/extra-addons/ingadhoc/miscellaneous,/mnt/extra-addons/ingadhoc/stock,/mnt/extra-addons/ingadhoc/account-financial-tools,/mnt/extra-addons/ingadhoc/odoo-argentina-ce,/mnt/extra-addons/OCA/account-financial-reporting,/mnt/extra-addons/OCA/account-reconcile,/mnt/extra-addons/OCA/web,/mnt/extra-addons/OCA/server-tools,/mnt/extra-addons/OCA/server-ux,/mnt/extra-addons/OCA/stock-logistics-workflow,/mnt/extra-addons/OCA/sale-workflow,/mnt/extra-addons/OCA/reporting-engine|' /etc/odoo/odoo.conf
+RUN sed -i 's|addons_path = /mnt/extra-addons|addons_path = /mnt/extra-addons/source,/mnt/extra-addons/source/devman-addons,/mnt/extra-addons/ingadhoc/odoo-argentina,/mnt/extra-addons/ingadhoc/account-payment,/mnt/extra-addons/ingadhoc/account-invoicing,/mnt/extra-addons/ingadhoc/argentina-sale,/mnt/extra-addons/ingadhoc/miscellaneous,/mnt/extra-addons/ingadhoc/stock,/mnt/extra-addons/ingadhoc/account-financial-tools,/mnt/extra-addons/ingadhoc/odoo-argentina-ce,/mnt/extra-addons/OCA/account-financial-reporting,/mnt/extra-addons/OCA/account-reconcile,/mnt/extra-addons/OCA/web,/mnt/extra-addons/OCA/server-tools,/mnt/extra-addons/OCA/server-ux,/mnt/extra-addons/OCA/stock-logistics-workflow,/mnt/extra-addons/OCA/sale-workflow,/mnt/extra-addons/OCA/reporting-engine|' /etc/odoo/odoo.conf
 
 # Copiar los requerimientos del módulo, si es que existen, e instalarlos
 RUN find /mnt/extra-addons/ -name requirements.txt -exec pip install -r {} \;
