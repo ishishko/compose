@@ -14,8 +14,8 @@
 
 # Eliminar las carpetas de los volumenes de Docker Compose
  sudo rm -rf ./odoo-addons
- sudo rm -rf ./Desktop/odoo-data
- sudo rm -rf ./Desktop/postgres-data
+ sudo rm -rf ./odoo-data
+ sudo rm -rf ./postgres-data
 
 # Eliminar todos los contenedores huérfanos de Docker Compose
  docker compose down --remove-orphans
