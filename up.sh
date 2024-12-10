@@ -24,8 +24,7 @@ git clone -b 17.0 --single-branch https://github.com/OCA/account-financial-repor
     && git clone -b 17.0 --single-branch https://github.com/OCA/reporting-engine.git ./odoo-addons/OCA/reporting-engine
 
 # Clonar repositorios de terceros
-mkdir -p ./odoo-addons/source
-git clone -b 17.0 --single-branch git@github.com:devman-dev/devman-addons.git ./odoo-addons/source/devman-addons
+mkdir -p ./odoo-addons/source/devman-addons
 
 # Levantar los contenedores de Docker Compose
 docker compose up #| tee -a docker-compose.log

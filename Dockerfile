@@ -54,9 +54,6 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* && \
 
 # RUN git clone -b 17.0 --single-branch https://github.com/Yenthe666/auto_backup.git /mnt/extra-addons/source/auto_backup
 
-# Crear directorio para módulos personalizados
-RUN mkdir -p /mnt/extra-addons/source
-
 # Establecer la variable de entorno para addons_path
 # ENV ODOO_ADDONS_PATH="/mnt/extra-addons/loc_arg/ingadhoc/account-payment,/mnt/extra-addons/loc_arg/ingadhoc/account-invoicing,/mnt/extra-addons/loc_arg/ingadhoc/argentina-sale,/mnt/extra-addons/loc_arg/ingadhoc/miscellaneous,/mnt/extra-addons/loc_arg/ingadhoc/stock,/mnt/extra-addons/loc_arg/ingadhoc/account-financial-tools,/mnt/extra-addons/loc_arg/OCA/account-financial-reporting,/mnt/extra-addons/loc_arg/OCA/account-reconcile,/mnt/extra-addons/loc_arg/OCA/web,/mnt/extra-addons/loc_arg/OCA/server-tools,/mnt/extra-addons/loc_arg/OCA/stock-logistics-workflow,/mnt/extra-addons/loc_arg/OCA/sale-workflow"
 
@@ -64,6 +61,11 @@ RUN mkdir -p /mnt/extra-addons/source
 RUN sed -i 's/CipherString = DEFAULT@SECLEVEL=2/CipherString = DEFAULT@SECLEVEL=1/' /etc/ssl/openssl.cnf
 
 RUN sed -i 's|addons_path = /mnt/extra-addons|addons_path = /mnt/extra-addons/source,/mnt/extra-addons/source/devman-addons,/mnt/extra-addons/ingadhoc/odoo-argentina,/mnt/extra-addons/ingadhoc/account-payment,/mnt/extra-addons/ingadhoc/account-invoicing,/mnt/extra-addons/ingadhoc/argentina-sale,/mnt/extra-addons/ingadhoc/miscellaneous,/mnt/extra-addons/ingadhoc/stock,/mnt/extra-addons/ingadhoc/account-financial-tools,/mnt/extra-addons/ingadhoc/odoo-argentina-ce,/mnt/extra-addons/OCA/account-financial-reporting,/mnt/extra-addons/OCA/account-reconcile,/mnt/extra-addons/OCA/web,/mnt/extra-addons/OCA/server-tools,/mnt/extra-addons/OCA/server-ux,/mnt/extra-addons/OCA/stock-logistics-workflow,/mnt/extra-addons/OCA/sale-workflow,/mnt/extra-addons/OCA/reporting-engine|' /etc/odoo/odoo.conf
+
+RUN pip3 install dropbox \
+    pyncclient \
+    boto3 \
+    nextcloud-api-wrapper
 
 # Copiar los requerimientos del módulo, si es que existen, e instalarlos
 RUN find /mnt/extra-addons/ -name requirements.txt -exec pip install -r {} \;
