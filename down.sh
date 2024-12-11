@@ -16,6 +16,8 @@
  sudo rm -rf ./odoo-addons
  sudo rm -rf ./odoo-data
  sudo rm -rf ./postgres-data
+ sudo rm -rf ./odoo-backups
+ sudo rm -rf ./etc
 
 # Eliminar todos los contenedores huérfanos de Docker Compose
  docker compose down --remove-orphans
