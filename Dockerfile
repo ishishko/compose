@@ -53,9 +53,12 @@ RUN git clone -b 17.0 --single-branch https://github.com/OCA/account-financial-r
     && git clone -b 17.0 --single-branch https://github.com/OCA/reporting-engine.git /mnt/extra-addons/OCA/reporting-engine
 
 # Clonar repositorios de terceros
+RUN git clone -b 17.0 --single-branch https://github.com/odoomates/odooapps.git /mnt/extra-addons/odoomates/odooapps
+
+# Crear directorio para módulos de desarrollo
 RUN mkdir -p /mnt/extra-addons/source/devman-addons
 # Agregando Path de modulos
-RUN sed -i 's|addons_path = /mnt/extra-addons|addons_path = /mnt/extra-addons/source,/mnt/extra-addons/source/devman-addons,/mnt/extra-addons/ingadhoc/odoo-argentina,/mnt/extra-addons/ingadhoc/account-payment,/mnt/extra-addons/ingadhoc/account-invoicing,/mnt/extra-addons/ingadhoc/argentina-sale,/mnt/extra-addons/ingadhoc/miscellaneous,/mnt/extra-addons/ingadhoc/stock,/mnt/extra-addons/ingadhoc/account-financial-tools,/mnt/extra-addons/ingadhoc/odoo-argentina-ce,/mnt/extra-addons/OCA/account-financial-reporting,/mnt/extra-addons/OCA/account-reconcile,/mnt/extra-addons/OCA/web,/mnt/extra-addons/OCA/server-tools,/mnt/extra-addons/OCA/server-ux,/mnt/extra-addons/OCA/stock-logistics-workflow,/mnt/extra-addons/OCA/sale-workflow,/mnt/extra-addons/OCA/reporting-engine|' /etc/odoo/odoo.conf
+RUN sed -i 's|addons_path = /mnt/extra-addons|addons_path = /mnt/extra-addons/source,/mnt/extra-addons/source/devman-addons,/mnt/extra-addons/odoomates/odooapps,/mnt/extra-addons/ingadhoc/odoo-argentina,/mnt/extra-addons/ingadhoc/account-payment,/mnt/extra-addons/ingadhoc/account-invoicing,/mnt/extra-addons/ingadhoc/argentina-sale,/mnt/extra-addons/ingadhoc/miscellaneous,/mnt/extra-addons/ingadhoc/stock,/mnt/extra-addons/ingadhoc/account-financial-tools,/mnt/extra-addons/ingadhoc/odoo-argentina-ce,/mnt/extra-addons/OCA/account-financial-reporting,/mnt/extra-addons/OCA/account-reconcile,/mnt/extra-addons/OCA/web,/mnt/extra-addons/OCA/server-tools,/mnt/extra-addons/OCA/server-ux,/mnt/extra-addons/OCA/stock-logistics-workflow,/mnt/extra-addons/OCA/sale-workflow,/mnt/extra-addons/OCA/reporting-engine|' /etc/odoo/odoo.conf
 
 # Copiando archivos para set de volumenes
 RUN cp -r /mnt /mnt2 \
