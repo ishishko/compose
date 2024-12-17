@@ -68,7 +68,8 @@ RUN cp -r /mnt /mnt2 \
 RUN pip3 install dropbox \
     pyncclient \
     boto3 \
-    nextcloud-api-wrapper
+    nextcloud-api-wrapper \
+    paramiko
 
 # Actualizar la configuración de OpenSSL para pyAfip
 RUN sed -i 's/CipherString = DEFAULT@SECLEVEL=2/CipherString = DEFAULT@SECLEVEL=1/' /etc/ssl/openssl.cnf
