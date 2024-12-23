@@ -9,8 +9,9 @@ docker compose up -d #| tee -a docker-compose.log
 # Recupera archivos de volumenes y elimina directorio temporal
 docker exec odoo17 cp -rf /mnt2/. /mnt
 docker exec odoo17 rm -rf /mnt2 
-docker exec odoo17 cp -rf /etc/odoo2/. /etc/odoo/
-docker exec odoo17 rm -rf /etc/odoo2
+
+# Agrega configuracion de Odoo
+cp -rf ./base_odoo.conf ./etc/odoo.conf
 
 # Reiniciado servicios
 docker compose down
