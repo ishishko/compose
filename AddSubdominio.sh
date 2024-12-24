@@ -21,10 +21,13 @@ $subdominio.devman2.com {
         header_up X-Odoo-dbfilter $subdominio
     }
 }
+
 "
 
 # Agregar el código al final del archivo Caddyfile
 echo "$codigo" >> "$CADDYFILE"
+
+echo "Reiniciando caddy.service"
 
 sudo systemctl restart caddy.service
 

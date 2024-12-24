@@ -11,7 +11,9 @@ if [ ! -f "$CADDYFILE" ]; then
 fi
 
 # Eliminar el bloque que contiene el subdominio
-sed -i "/$subdominio.devman2.com {/,/}/d" "$CADDYFILE"
+sed -i "/$subdominio.devman2.com {/{N;N;N;N;N;N;N;N;N;d;}" "$CADDYFILE"
+
+echo "Reiniciando caddy.service"
 
 sudo systemctl restart caddy.service
 

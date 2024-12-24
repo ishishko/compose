@@ -19,13 +19,13 @@
 	}
 }
 
-# EJ: Configuración del subdominio test con proxy inverso a Odoo
-    # test.devman2.com {
-    # 	import common "/var/log/caddy/test"
-    # 	reverse_proxy localhost:8069 {
-    # 		# Configuración de cabeceras para el proxy
-    # 		header_up Host {host}
-    # 		header_up X-Real-IP {remote_host}
-    # 		header_up X-Odoo-dbfilter test
-    # 	}
-    # }
+# EJ: Configuración del subdominio ejemplo con proxy inverso a Odoo
+# ejemplo.devman.com {
+# 	import common "/var/log/caddy/ejemplo"
+# 	reverse_proxy localhost:8069 {
+# 		# Configuración de cabeceras para el proxy
+# 		header_up Host {host}
+# 		header_up X-Real-IP {remote_host}
+# 		header_up X-Odoo-dbfilter ejemplo
+# 	}
+# }

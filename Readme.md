@@ -12,13 +12,12 @@ El script `up.sh` se encargará de verificar e instalar las herramientas si es n
 La estructura del proyecto es la siguiente:
 - `docker-compose.yml`: Archivo de configuración de Docker Compose que define los servicios, redes y volúmenes.
 - `Dockerfile`: Archivo de configuración de Docker para construir la imagen de la aplicación.
-- `up.sh`: Script para construir y levantar los contenedores de Docker Compose.
+- `up.sh`: Script para verificar e instalar herramientas necesarias, construir y levantar los contenedores de Docker Compose.
 - `down.sh`: Script para detener y eliminar los contenedores, imágenes y volúmenes de Docker Compose.
 - `AddSubdominio.sh`: Script para agregar un subdominio en Caddy.
 - `DelSubdomnio.sh`: Script para eliminar un subdominio en Caddy.
 - `Caddyfile`: Archivo de configuración de Caddy.
 - `odoo.conf`: Archivo de configuración de Odoo.
-- `Readme.md`: Este archivo de documentación.
 
 ## Funcionalidades
 
