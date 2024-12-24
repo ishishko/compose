@@ -1,0 +1,31 @@
+(common) {
+	# Configuración de compresión simplificada
+	encode gzip
+
+	# Headers de seguridad
+	header {
+		X-Frame-Options "SAMEORIGIN"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+	}
+
+	# Logs con sintaxis actualizada
+	log {
+		output file {args[0]}/site.log {
+			roll_size 10MB
+			roll_keep 5
+			roll_keep_for 720h
+		}
+	}
+}
+
+# EJ: Configuración del subdominio test con proxy inverso a Odoo
+    # test.devman2.com {
+    # 	import common "/var/log/caddy/test"
+    # 	reverse_proxy localhost:8069 {
+    # 		# Configuración de cabeceras para el proxy
+    # 		header_up Host {host}
+    # 		header_up X-Real-IP {remote_host}
+    # 		header_up X-Odoo-dbfilter test
+    # 	}
+    # }

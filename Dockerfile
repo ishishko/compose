@@ -79,3 +79,6 @@ RUN sed -i 's/CipherString = DEFAULT@SECLEVEL=2/CipherString = DEFAULT@SECLEVEL=
 # Copiar los requerimientos del módulo, si es que existen, e instalarlos
 RUN find /mnt/extra-addons/ -name requirements.txt -exec pip install -r {} \;
 
+# Correcion de dependencias
+RUN pip uninstall -y chardet && \
+    pip install chardet==3.0.4

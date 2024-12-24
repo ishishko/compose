@@ -16,8 +16,8 @@ services:
     volumes:
       - ./odoo-addons:/mnt/extra-addons
       - ./odoo-data:/var/lib/odoo
-      - ./etc:/etc/odoo
       - ./odoo-backups:/odoo-backups
+      - ./etc:/etc/odoo
 
   db:
     image: postgres:14
