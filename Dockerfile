@@ -54,22 +54,17 @@ RUN git clone -b 17.0 --single-branch https://github.com/OCA/account-financial-r
     && git clone -b 17.0 --single-branch https://github.com/OCA/project.git /mnt/extra-addons/OCA/project
 
 # Clonar repositorios de terceros
-RUN git clone -b 17.0 --single-branch https://github.com/odoomates/odooapps.git /mnt/extra-addons/odoomates/odooapps
+
+# Clonar repositorios basicos
+RUN git clone https://github.com/devman-dev/basic.git /mnt/extra-addons/source/basic
 
 # Crear directorio para módulos de desarrollo
 RUN mkdir -p /mnt/extra-addons/source/devman-addons
 # Agregando Path de modulos
-RUN sed -i 's|addons_path = /mnt/extra-addons|addons_path = /mnt/extra-addons/source,/mnt/extra-addons/source/devman-addons,/mnt/extra-addons/odoomates/odooapps,/mnt/extra-addons/ingadhoc/odoo-argentina,/mnt/extra-addons/ingadhoc/account-payment,/mnt/extra-addons/ingadhoc/account-invoicing,/mnt/extra-addons/ingadhoc/argentina-sale,/mnt/extra-addons/ingadhoc/miscellaneous,/mnt/extra-addons/ingadhoc/stock,/mnt/extra-addons/ingadhoc/account-financial-tools,/mnt/extra-addons/ingadhoc/odoo-argentina-ce,/mnt/extra-addons/OCA/account-financial-reporting,/mnt/extra-addons/OCA/account-reconcile,/mnt/extra-addons/OCA/web,/mnt/extra-addons/OCA/server-tools,/mnt/extra-addons/OCA/server-ux,/mnt/extra-addons/OCA/stock-logistics-workflow,/mnt/extra-addons/OCA/sale-workflow,/mnt/extra-addons/OCA/reporting-engine,/mnt/extra-addons/OCA/project|' /etc/odoo/odoo.conf
+
 
 # Copiando archivos para set de volumenes
 RUN cp -r /mnt /mnt2 
-
-# Dependencias auto_database_backup
-RUN pip3 install dropbox \
-    pyncclient \
-    boto3 \
-    nextcloud-api-wrapper \
-    paramiko
 
 # Actualizar la configuración de OpenSSL para pyAfip
 RUN sed -i 's/CipherString = DEFAULT@SECLEVEL=2/CipherString = DEFAULT@SECLEVEL=1/' /etc/ssl/openssl.cnf
@@ -78,6 +73,12 @@ RUN sed -i 's/CipherString = DEFAULT@SECLEVEL=2/CipherString = DEFAULT@SECLEVEL=
 # Copiar los requerimientos del módulo, si es que existen, e instalarlos
 RUN find /mnt/extra-addons/ -name requirements.txt -exec pip install -r {} \;
 
+# Dependencias auto_database_backup
+RUN pip3 install dropbox \
+    pyncclient \
+    boto3 \
+    nextcloud-api-wrapper \
+    paramiko
 # Correcion de dependencias
 RUN pip uninstall -y chardet && \
     pip install chardet==3.0.4
