@@ -1,15 +1,76 @@
-# Proyecto Docker Compose y Caddy
+# Proyecto de Automatización con Docker y Caddy
 
 ## Introducción
+
+El proyecto se encarga de automatizar la construcción utilizando Docker para levantar los servicios de Odoo y Caddy. Caddy se utiliza para la gestión de subdominios, manejo de certificados SSL (HTTPS) automático y proxies inversos. Los scripts están diseñados para servidores que corren bajo la distribución Ubuntu de Linux.
+
+## Configuración de Odoo
+
+Se ha agregado un archivo de configuración (`odoo.conf`) optimizado para los recursos de las VPS actuales:
+
+- **CPU**: 4 cores
+- **RAM**: 4GB
+- **Almacenamiento**: 30GB
+
+### Límites establecidos:
+
+- Hasta 6 bases de datos diferentes
+- Hasta 64 conexiones activas totales a las bases de datos
+- Hasta 1 hora de inactividad por conexión
+- Contraseña ADMIN de la base de datos establecida por defecto
+
+## Configuración de Caddy
+
+Se ha agregado un archivo de configuración (`Caddyfile`) donde se gestionan los subdominios. El archivo tiene la configuración básica habilitada. Se han creado dos scripts para agregar o eliminar subdominios en la VPS.
+
+## Instalación de Odoo
+
+Para manejar repositorios privados, se han agregado claves SSH (devman2DK) al repositorio. Sigue estos pasos para la instalación:
+
+1. **Clonar el repositorio localmente**:
+    ```bash
+    git clone https://github.com/ishishko/compose.git
+    ```
+
+2. **Copiar el repositorio a la VPS**:
+    ```bash
+    scp -P puerto -r /ruta/local/de/la/carpeta usuario@vps:/ruta/remota/de/destino
+    scp -r devman2DK/ usuario@vps:~/
+    ```
+
+3. **Ingresar a la VPS y agregar la clave SSH**:
+    ```bash
+    eval "$(ssh-agent -s)"  # Verifica que el agente SSH esté corriendo
+    ssh-add devman2DK/deploy_keys  # Agrega la clave privada al SSH
+    ```
+
+4. **Descargar el repositorio en la VPS**:
+    ```bash
+    git clone git@github.com:ishishko/compose.git
+    ```
+
+5. **Iniciar los contenedores de Odoo**:
+    ```bash
+    sudo ./up.sh
+    ```
+
+## Proyecto Docker Compose y Caddy
+
+### Introducción
+
 Este proyecto utiliza Docker Compose para orquestar múltiples contenedores Docker y Caddy para gestionar subdominios y proxies inversos. Proporciona un entorno de desarrollo reproducible y fácil de configurar.
 
-## Requisitos previos
-El script `up.sh` se encargará de verificar e instalar las herramientas si es necesario:
-- [Docker](https://www.docker.com/get-started)
-- [Caddy](https://caddyserver.com/)
+### Requisitos previos
 
-## Estructura del proyecto
+El script `up.sh` se encargará de verificar e instalar las herramientas si es necesario:
+
+- Docker
+- Caddy
+
+### Estructura del proyecto
+
 La estructura del proyecto es la siguiente:
+
 - `docker-compose.yml`: Archivo de configuración de Docker Compose que define los servicios, redes y volúmenes.
 - `Dockerfile`: Archivo de configuración de Docker para construir la imagen de la aplicación.
 - `up.sh`: Script para verificar e instalar herramientas necesarias, construir y levantar los contenedores de Docker Compose.
@@ -19,41 +80,41 @@ La estructura del proyecto es la siguiente:
 - `Caddyfile`: Archivo de configuración de Caddy.
 - `odoo.conf`: Archivo de configuración de Odoo.
 
-## Funcionalidades
+### Funcionalidades
 
-### Docker Compose
-- **Construcción y levantamiento de contenedores**: Utiliza el script [up.sh](compose/up.sh) para construir y levantar los contenedores definidos en el archivo [docker-compose.yml](compose/docker-compose.yml).
-- **Detención y eliminación de contenedores**: Utiliza el script [down.sh](compose/down.sh) para detener y eliminar los contenedores, imágenes y volúmenes asociados.
-- **Configuración de Odoo**: El archivo [odoo.conf](compose/odoo.conf) contiene la configuración de Odoo utilizada por los contenedores.
+#### Docker Compose
 
-### Caddy
-- **Gestión de subdominios**: Utiliza el script [AddSubdominio.sh](compose/AddSubdominio.sh) para agregar un nuevo subdominio y el script [DelSubdomnio.sh](compose/DelSubdomnio.sh) para eliminar un subdominio existente.
-- **Configuración de Caddy**: El archivo [Caddyfile](compose/Caddyfile) contiene la configuración de Caddy, incluyendo la configuración de subdominios y proxies inversos.
+- **Construcción y levantamiento de contenedores**: Utiliza el script `up.sh` para construir y levantar los contenedores definidos en el archivo `docker-compose.yml`.
+- **Detención y eliminación de contenedores**: Utiliza el script `down.sh` para detener y eliminar los contenedores, imágenes y volúmenes asociados.
+- **Configuración de Odoo**: El archivo `odoo.conf` contiene la configuración de Odoo utilizada por los contenedores.
 
-## Instrucciones de uso
+#### Caddy
 
-### Docker Compose
-1. Construir y levantar los contenedores:
-    ```sh
-    ./compose/up.sh
-    ```
-2. Detener y eliminar los contenedores, imágenes y volúmenes:
-    ```sh
-    ./compose/down.sh
-    ```
+- **Gestión de subdominios**: Utiliza el script `AddSubdominio.sh` para agregar un nuevo subdominio y el script `DelSubdomnio.sh` para eliminar un subdominio existente.
+- **Configuración de Caddy**: El archivo `Caddyfile` contiene la configuración de Caddy, incluyendo la configuración de subdominios y proxies inversos.
 
-### Caddy
-1. Agregar un nuevo subdominio:
-    ```sh
-    ./compose/AddSubdominio.sh
-    ```
-2. Eliminar un subdominio existente:
-    ```sh
-    ./compose/DelSubdomnio.sh
+### Instrucciones de uso
+
+#### Docker Compose
+
+- **Construir y levantar los contenedores**:
+    ```bash
+    up.sh
     ```
 
-## Contribuciones
-Si deseas contribuir a este proyecto, por favor abre un issue o envía un pull request en el repositorio.
+- **Detener y eliminar los contenedores, imágenes y volúmenes**:
+    ```bash
+    down.sh
+    ```
 
-## Licencia
-Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo LICENSE para más detalles.
+#### Caddy
+
+- **Agregar un nuevo subdominio**:
+    ```bash
+    AddSubdominio.sh
+    ```
+
+- **Eliminar un subdominio existente**:
+    ```bash
+    DelSubdomnio.sh
+    ```

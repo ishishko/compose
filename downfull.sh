@@ -7,10 +7,17 @@
  docker compose rm -f
 
 # Eliminar todas las imágenes de Docker Compose
- docker image prune -a
+ docker image prune -a -f
 
 # Eliminar todos los volúmenes de Docker Compose
  docker volume prune -f
+
+# Eliminar las carpetas de los volumenes de Docker Compose
+ sudo rm -rf ./odoo-addons
+ sudo rm -rf ./odoo-data
+ sudo rm -rf ./postgres-data
+ sudo rm -rf ./odoo-backups
+ sudo rm -rf ./etc
 
 # Eliminar todos los contenedores huérfanos de Docker Compose
  docker compose down --remove-orphans

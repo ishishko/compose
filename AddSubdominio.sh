@@ -10,6 +10,12 @@ if [ ! -f "$CADDYFILE" ]; then
     exit 1
 fi
 
+# Verificar si el subdominio ya existe en el archivo Caddyfile
+if grep -q "$subdominio.devman2.com" "$CADDYFILE"; then
+    echo "El subdominio $subdominio ya existe en el archivo Caddyfile."
+    exit 1
+fi
+
 # Código a agregar con el subdominio reemplazado
 codigo="
 $subdominio.devman2.com {
