@@ -32,24 +32,39 @@ Para manejar repositorios privados, se han agregado claves SSH (devman2DK) al re
     git clone https://github.com/ishishko/compose.git
     ```
 
-2. **Copiar el repositorio a la VPS**:
+2. **Copiar las llaves de directorio devman2DK al ssh de la VPS**:
     ```bash
-    scp -P puerto -r /ruta/local/de/la/carpeta usuario@vps:/ruta/remota/de/destino
+    scp -P puerto -r /ruta/local/de/la/carpeta/* usuario@vps:/ruta/remota/de/destino
     scp -r devman2DK/ usuario@vps:~/
     ```
 
-3. **Ingresar a la VPS y agregar la clave SSH**:
+3. **Ingresar a la VPS y agregar la clave SSH a la configuracion**:
     ```bash
-    eval "$(ssh-agent -s)"  # Verifica que el agente SSH esté corriendo
-    ssh-add devman2DK/deploy_keys  # Agrega la clave privada al SSH
+    echo "Host *" > ~/.ssh/config
+    echo "    IdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
+    echo "    AddKeysToAgent yes" >> ~/.ssh/config
     ```
 
-4. **Descargar el repositorio en la VPS**:
+4. **Configurar el archivo archivo .bashrc**:
+    ```bash
+    echo "#Agregar claves SSH al agente" >> .bashrc
+    echo "if [ -z "$SSH_AUTH_SOCK" ]; then" >> .bashrc
+    echo '    eval "$(ssh-agent -s)"' >> .bashrc
+    echo '    ssh-add ~/.ssh/llave1' >> .bashrc
+    echo 'fi' >> .bashrc
+    ```
+
+5. **Recargar .bashrc**:
+    ```bash
+    source ~/.bashrc
+    ```
+
+6. **Descargar el repositorio en la VPS**:
     ```bash
     git clone git@github.com:ishishko/compose.git
     ```
 
-5. **Iniciar los contenedores de Odoo**:
+7. **Iniciar los contenedores de Odoo**:
     ```bash
     sudo ./up.sh
     ```
