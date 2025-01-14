@@ -1,5 +1,6 @@
 odoo-addons/
-odoo-data/
-postgres-data/
 odoo-backups/
-etc/
+odoo-data/
+odoo-etc/
+odoo-log/
+postgres-data/

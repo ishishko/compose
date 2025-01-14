@@ -11,13 +11,13 @@ if [ ! -f "$CADDYFILE" ]; then
 fi
 
 # Verificar si el subdominio ya existe en el archivo Caddyfile
-if ! grep -q "$subdominio.devman2.com" "$CADDYFILE"; then
+if ! grep -q "# Configuración del subdominio $subdominio" "$CADDYFILE"; then
     echo "El subdominio $subdominio no existe en el archivo Caddyfile."
     exit 1
 fi
 
-# Eliminar el bloque que contiene el subdominio
-sed -i "/$subdominio.devman2.com {/{N;N;N;N;N;N;N;N;N;d;}" "$CADDYFILE"
+# Eliminar el bloque de configuración del subdominio
+sed -i "/# Configuración del subdominio $subdominio/,/# End of $subdominio/d" "$CADDYFILE"
 
 echo "Reiniciando caddy.service"
 

@@ -18,15 +18,31 @@ fi
 
 # Código a agregar con el subdominio reemplazado
 codigo="
+# Configuración del subdominio $subdominio
 $subdominio.devman2.com {
-    import common \"/var/log/caddy/$subdominio\"
-    reverse_proxy localhost:8069 {
-        # Configuración de cabeceras para el proxy
-        header_up Host {host}
-        header_up X-Real-IP {remote_host}
-        header_up X-Odoo-dbfilter $subdominio
+    import common \"/var/log/caddy/ejemplo\"
+    # Redirección de solicitudes a Odoo backend
+    handle {
+        reverse_proxy localhost:8069 {
+            # Configuración de cabeceras para el proxy
+            header_up Host {host}
+            header_up X-Real-IP {remote_host}
+            header_up X-Odoo-dbfilter $subdominio
+        }
+    }
+    # Redirección de solicitudes websocket a OdooChat
+    handle_path /websocket* {
+        reverse_proxy localhost:8072 {
+            header_up Host {host}
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+            header_up Upgrade {>Upgrade}
+            header_up Connection {>Connection}
+            header_up X-Odoo-dbfilter $subdominio
+        }
     }
 }
+# End of $subdominio
 
 "
 
