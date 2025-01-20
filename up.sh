@@ -23,7 +23,7 @@ docker exec odoo17 cp -rf /mnt2/. /mnt
 docker exec odoo17 rm -rf /mnt2 
 
 # Agrega configuracion de Odoo
-sudo cp -f odoo.conf etc/
+sudo cp -f odoo.conf odoo-etc/
 
 # Reiniciado servicios
 docker compose down
