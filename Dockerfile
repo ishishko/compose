@@ -64,10 +64,12 @@ RUN mkdir -p /mnt/extra-addons/source/devman-addons
 
 
 # Copiando archivos para set de volumenes
-RUN cp -r /mnt /mnt2 
+RUN cp -r /mnt /mnt2 \
+    && cp -r /usr/lib/python3/dist-packages/odoo/addons /usr/lib/python3/dist-packages/odoo/addons2 \
+    && cp -r /var/lib/odoo /var/lib/odoo2
 
 # Actualizar la configuración de OpenSSL para pyAfip
-RUN sed -i 's/CipherString = DEFAULT@SECLEVEL=2/CipherString = DEFAULT@SECLEVEL=1/' /etc/ssl/openssl.cnf
+RUN sed -i 's/CipherString = DEFAULT:@SECLEVEL=2/CipherString = DEFAULT:@SECLEVEL=1/' /etc/ssl/openssl.cnf
 
 
 # Copiar los requerimientos del módulo, si es que existen, e instalarlos

@@ -16,6 +16,7 @@ services:
     volumes:
       - ./odoo-addons:/mnt/extra-addons
       - ./odoo-backups:/odoo-backups
+      - ./odoo-base:/usr/lib/python3/dist-packages/odoo/addons
       - ./odoo-data:/var/lib/odoo
       - ./odoo-etc:/etc/odoo
       - ./odoo-log:/var/log/odoo
