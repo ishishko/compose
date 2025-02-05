@@ -19,10 +19,13 @@ docker compose build --no-cache #| tee docker compose.log
 docker compose up -d #| tee -a docker-compose.log
 
 # Recupera archivos de volumenes y elimina directorio temporal
+echo "Copiando archivos de modulos..."
 docker exec odoo17 cp -rf /mnt2/. /mnt
 docker exec odoo17 rm -rf /mnt2 
+echo "Copiando archivos base..."
 docker exec odoo17 cp -rf /usr/lib/python3/dist-packages/odoo/addons2/. /usr/lib/python3/dist-packages/odoo/addons
 docker exec odoo17 rm -rf /usr/lib/python3/dist-packages/odoo/addons2
+echo "Copiando archivos filestore..."
 docker exec odoo17 cp -rf /var/lib/odoo2/. /var/lib/odoo
 docker exec odoo17 rm -rf /var/lib/odoo2
 
