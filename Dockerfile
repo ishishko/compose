@@ -17,7 +17,8 @@ RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y libjpeg-dev && \
     apt-get install -y wget && \
     apt-get install -y gnupg2 && \
-    apt-get install -y lsb-release
+    apt-get install -y lsb-release && \
+    apt-get install -y swig libssl-dev
 
 # Agrega la clave del repositorio de PostgreSQL
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
@@ -56,10 +57,11 @@ RUN git clone -b 17.0 --single-branch https://github.com/OCA/account-financial-r
 # Clonar repositorios de terceros
 
 # Clonar repositorios basicos
-RUN git clone https://github.com/devman-dev/basic.git /mnt/extra-addons/source/basic
+RUN git clone https://github.com/devman-dev/basic.git /mnt/extra-addons/source/basic \
+    && git clone https://github.com/devman-dev/devman-addons.git /mnt/extra-addons/source/devman-addons
 
 # Crear directorio para módulos de desarrollo
-RUN mkdir -p /mnt/extra-addons/source/devman-addons
+# RUN mkdir -p /mnt/extra-addons/source/devman-addons
 # Agregando Path de modulos
 
 
@@ -83,4 +85,8 @@ RUN pip3 install dropbox \
     paramiko
 # Correcion de dependencias
 RUN pip uninstall -y chardet && \
-    pip install chardet==3.0.4
+    pip install chardet==3.0.4 && \
+    pip uninstall -y httplib2 && \
+    pip install httplib2==0.20.4 && \
+    pip install --upgrade pip setuptools && \
+    pip install M2Crypto
