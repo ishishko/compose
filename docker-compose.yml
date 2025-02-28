@@ -2,7 +2,7 @@
 services:
   web:
     build: .
-    container_name: odoo17
+    container_name: odoo17ce2025
     depends_on:
       - db
     ports:
@@ -23,7 +23,7 @@ services:
 
   db:
     image: postgres:14
-    container_name: postgres
+    container_name: postgresce2025
     environment:
       - POSTGRES_USER=odoo
       - POSTGRES_PASSWORD=odoo
