@@ -1,7 +1,7 @@
 
 services:
   web:
-    build: .
+    image: asartorio/odoo17ce2025
     container_name: odoo17ce2025
     depends_on:
       - db
@@ -15,8 +15,6 @@ services:
       - POSTGRES_DB=postgres
     volumes:
       - ./odoo-addons:/mnt/extra-addons
-      - ./odoo-backups:/odoo-backups
-      - ./odoo-base:/usr/lib/python3/dist-packages/odoo/addons
       - ./odoo-data:/var/lib/odoo
       - ./odoo-etc:/etc/odoo
       - ./odoo-log:/var/log/odoo
