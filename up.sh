@@ -18,6 +18,10 @@ docker compose build --no-cache
 # Levantar los contenedores de Docker Compose
 docker compose up -d
 
+# Asignando permisos a los archivos y carpetas
+sudo chown -R $USER:$USER ./odoo-addons  ./odoo-data ./odoo-etc ./odoo-log
+sudo chmod -R 775 ./odoo-addons ./odoo-data ./odoo-etc ./odoo-log
+
 # Clonar los repositorios de Adhoc
 git clone -b 17.0 --single-branch https://github.com/ingadhoc/odoo-argentina.git ./odoo-addons/ingadhoc/odoo-argentina 
 git clone -b 17.0 --single-branch https://github.com/ingadhoc/account-payment.git ./odoo-addons/ingadhoc/account-payment 
@@ -41,12 +45,12 @@ git clone -b 17.0 --single-branch https://github.com/OCA/sale-workflow.git ./odo
 git clone -b 17.0 --single-branch https://github.com/OCA/reporting-engine.git ./odoo-addons/OCA/reporting-engine 
 git clone -b 17.0 --single-branch https://github.com/OCA/project.git ./odoo-addons/OCA/project
 
+git clone -b 17.0 --single-branch https://github.com/devman-dev/devman-addons.git ./odoo-addons/source/devman-addons
+git clone -b main --single-branch https://github.com/devman-dev/basic.git ./odoo-addons/source/basic
 # Agrega configuracion de Odoo
 sudo cp -f odoo.conf odoo-etc/
 
-# Asignando permisos a los archivos y carpetas
-sudo chown -R $USER:$USER ./odoo-addons  ./odoo-data ./odoo-etc ./odoo-log
-sudo chmod -R 775 ./odoo-addons ./odoo-data ./odoo-etc ./odoo-log
+
 
 # Reiniciado servicios
 docker compose down
